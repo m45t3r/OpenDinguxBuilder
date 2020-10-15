@@ -33,24 +33,10 @@ RUN apt-get update && apt-get install -y -q \
         unzip \
         wget
 
-RUN apt-get update && apt-get install -y -q \
-        bison \
-        bzr \
-        flex \
-        gcc-multilib \
-        genext2fs \
-        gettext \
-        libc6-dev-i386 \
-        libvorbis-dev \
-        libxext-dev \
-        mercurial \
-        mlocate \
+RUN apt-get install -y -q \
         nano \
-        default-jdk \
-        subversion \
+        squashfs-tools \
         sudo \
-        texinfo \
-        tree \
         vim
 
 # shave some space
@@ -65,8 +51,7 @@ RUN cd /opt \
         && tar xvfa ./$toolchain_file \
         && rm -f ./$toolchain_file
 
-ENV PATH="/opt/gcw0-toolchain/usr/bin:${PATH}:/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/bin"
-ENV CC=mipsel-linux-gcc
+ENV PATH="${PATH}:/opt/gcw0-toolchain/usr/bin:/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/bin"
 
 # fix locales
 RUN sed -i "s/^# en_GB.UTF-8/en_GB.UTF-8/" /etc/locale.gen && locale-gen && update-locale LANG=en_GB.UTF-8
